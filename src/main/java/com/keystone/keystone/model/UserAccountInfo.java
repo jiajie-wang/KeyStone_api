@@ -14,14 +14,15 @@ public class UserAccountInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
-    //限制长度16位的密码，不得为空
+    //限制长度6-16位的密码，不得为空
     @Column(length = 16, nullable = false)
     private String password;
     //邮箱，每个邮箱仅限注册一个账号，不得为空
     @Column(unique = true, nullable = false)
     private String email;
-    //电话
-    private int phoneNum;
+    //电话，由于11位较长需要TEXT
+    @Column(nullable = true)
+    private String phoneNum;
 
     public int getUserId() {
         return userId;
@@ -41,10 +42,10 @@ public class UserAccountInfo {
     public void setEmail(String email) {
         this.email = email;
     }
-    public int getPhoneNum() {
+    public String getPhoneNum() {
         return phoneNum;
     }
-    public void setPhoneNum(int phoneNum) {
+    public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
     
