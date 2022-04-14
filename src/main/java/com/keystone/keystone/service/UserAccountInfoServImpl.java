@@ -1,5 +1,6 @@
 package com.keystone.keystone.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.keystone.keystone.model.UserAccountInfo;
@@ -22,6 +23,16 @@ public class UserAccountInfoServImpl implements UserAccountInfoServ{
     @Override
     public int saveUserAccountInfo(UserAccountInfo uai) {
         return uaiRepo.save(uai).getUserId();
+    }
+
+    @Override
+    public String getPasswordByEmail(String email) {
+        //虽然是List但理论上里面的uai对象不会超过一个，因为Email是特有值不会重复
+        List<UserAccountInfo> uaiList = uaiRepo.findAllByEmail(email);
+        if(uaiList.size() == 0)
+            return null;
+        else
+            return uaiList.get(0).getPassword();
     }
     
 }

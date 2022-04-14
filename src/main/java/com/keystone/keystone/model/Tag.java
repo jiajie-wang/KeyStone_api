@@ -1,9 +1,16 @@
 package com.keystone.keystone.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 //个人信息资料能够使用的标签（待完善）
 
@@ -14,9 +21,15 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tagId;
     //tag互斥组号，如同一用户不能同时拥有白羊座与金牛座的标签，互斥组号相同的标签不应出现在同一用户身上。0为无互斥组的独立tag
-    private int mutexNum;
-    //tag名称
+    //已抛弃的设想，目前没有作用
+    @Column(nullable = true)
+    private int mutexNum = 0;
+    //tag名称，不允许重复
+    @Column(unique = true)
     private String tagName;
+    //为方便查找，多对多储存所有拥有此标签的ubi，外键链接到UserBasicInfo
+    @ManyToMany(mappedBy = "tagSet")
+    private Set<UserBasicInfo> ubiSet = new HashSet<UserBasicInfo>();
     
     public int getTagId() {
         return tagId;
@@ -36,5 +49,14 @@ public class Tag {
     public void setTagName(String tagName) {
         this.tagName = tagName;
     }
+    public Set<UserBasicInfo> getUbiSet() {
+        return ubiSet;
+    }
+    //此注解为了防止出现无限循环包含外键对象
+    @JsonBackReference
+    public void setUbiSet(Set<UserBasicInfo> ubiSet) {
+        this.ubiSet = ubiSet;
+    }
+    
     
 }

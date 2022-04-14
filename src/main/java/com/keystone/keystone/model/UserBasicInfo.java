@@ -1,12 +1,18 @@
 package com.keystone.keystone.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 //用户基本信息（个人资料页），信息在用户一开始未填写或之后清空的情况下为未知情况
 
@@ -23,6 +29,7 @@ public class UserBasicInfo {
     @Column(length = 30, unique = true)
     private String userName;
     //用户性别，0暂无信息 1男性 2女性
+    @Column(nullable = true)
     private int gender;
     //用户生日，未知为new Date(-1)，getTime()能够检测-1
     @Column(columnDefinition = "DATE")
@@ -30,16 +37,26 @@ public class UserBasicInfo {
     //学校
     private String school;
     //感情关系，0未知 1单身 2恋爱中 3…… 可补充
+    @Column(nullable = true)
     private int relaStat;
     //身高（cm）0未知
+    @Column(nullable = true)
     private int height;
     //体重（斤）0未知
+    @Column(nullable = true)
     private int weight;
-    //文本储存标签id组，如“1,34,35,60,78”
-    @Column(columnDefinition = "TEXT")
-    private String tags;
+    //多对多储存Tags，外键链接到Tag
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Tag> tagSet = new HashSet<Tag>();
     //偏好掩码，Friends 1 Love同性 2 Love异性 4 Foreign Contacts 8 Chat 16
+    @Column(nullable = true)
     private int perfer;
+    //个人介绍
+    @Column(columnDefinition = "TEXT")
+    private String introduction;
+    //sai hi to others
+    @Column(columnDefinition = "TEXT")
+    private String sayHi;
 
     public int getUserId() {
         return userId;
@@ -95,11 +112,13 @@ public class UserBasicInfo {
     public void setWeight(int weight) {
         this.weight = weight;
     }
-    public String getTags() {
-        return tags;
+    public Set<Tag> getTagSet() {
+        return tagSet;
     }
-    public void setTags(String tags) {
-        this.tags = tags;
+    //此注解为了防止出现无限循环包含外键对象
+    @JsonBackReference
+    public void setTagSet(Set<Tag> tagSet) {
+        this.tagSet = tagSet;
     }
     public int getPerfer() {
         return perfer;
@@ -107,5 +126,18 @@ public class UserBasicInfo {
     public void setPerfer(int perfer) {
         this.perfer = perfer;
     }
+    public String getIntroduction() {
+        return introduction;
+    }
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+    public String getSayHi() {
+        return sayHi;
+    }
+    public void setSayHi(String sayHi) {
+        this.sayHi = sayHi;
+    }
+    
     
 }
