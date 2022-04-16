@@ -23,6 +23,13 @@ public class UserAccountInfo {
     //电话，由于11位较长需要TEXT
     @Column(nullable = true)
     private String phoneNum;
+    //验证问题，不得为空
+    @Column(nullable = false)
+    private String verifyQues;
+    //验证问题答案，不得为空
+    @Column(nullable = false)
+    private String verifyAns;
+
 
     public int getUserId() {
         return userId;
@@ -47,6 +54,18 @@ public class UserAccountInfo {
     }
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
+    }
+    public String getVerifyQues() {
+        return verifyQues;
+    }
+    public void setVerifyQues(String verifyQues) {
+        this.verifyQues = verifyQues;
+    }
+    public String getVerifyAns() {
+        return verifyAns;
+    }
+    public void setVerifyAns(String verifyAns) {
+        this.verifyAns = verifyAns;
     }
     
 }
