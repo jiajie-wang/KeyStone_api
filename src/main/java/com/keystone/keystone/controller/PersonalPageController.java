@@ -96,7 +96,7 @@ public class PersonalPageController {
 
     //在登入状态下验证密码
     @PostMapping(value = "user/verify")
-    public ResponseEntity<Boolean> isCorrectPassword(@RequestBody VerifyResponse response){
+    public ResponseEntity<Boolean> isCorrectPassword(@RequestBody PasswordVerifyResponse response){
         UserAccountInfo uai = uaiService.getUserAccountInfo(response.getUserId());
         return uai == null ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(null) : ResponseEntity.ok().body(response.getPassword().equals(uai.getPassword()));
     }
@@ -172,12 +172,12 @@ class UserBasicResponse {
     
 }
 
-class VerifyResponse{
+class PasswordVerifyResponse{
     
     private int userId;
     private String password;
 
-    public VerifyResponse(int userId, String password) {
+    public PasswordVerifyResponse(int userId, String password) {
         this.userId = userId;
         this.password = password;
     }

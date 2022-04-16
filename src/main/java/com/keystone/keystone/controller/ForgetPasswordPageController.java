@@ -25,7 +25,7 @@ public class ForgetPasswordPageController {
 
     //验证安全问题答案
     @PostMapping(value = "user/forgetPassword/verifyAns")
-    public ResponseEntity<Boolean> isCorrectVerifyAns(@RequestBody VerifyResponse response){
+    public ResponseEntity<Boolean> isCorrectVerifyAns(@RequestBody VerifyQuesResponse response){
         String expectedAns = uaiService.getUserVerifyAns(response.getEmail());
         String actualAns = response.getVerifyAns();
         return expectedAns == null ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(null) : ResponseEntity.ok().body(expectedAns.equals(actualAns));
@@ -34,11 +34,11 @@ public class ForgetPasswordPageController {
 }
 
 //isCorrectVerifyAns 答复结构：{email:???, verifyAns:???}
-class VerifyResponse{
+class VerifyQuesResponse{
     private String email;
     private String verifyAns;
 
-    public VerifyResponse(String email, String verifyAns){
+    public VerifyQuesResponse(String email, String verifyAns){
         this.email = email;
         this.verifyAns = verifyAns;
     }
