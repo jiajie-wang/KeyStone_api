@@ -16,11 +16,13 @@ public class SignInPageController {
     @Autowired
     private UserAccountInfoServ uaiService;
 
-    //登录验证密码，目前支持用邮箱登录
+    //登录验证密码，目前支持用邮箱登录，返回值为是否成功验证和用户Id（验证失败的话用户Id为0）
     @PostMapping(value = "sign")
-    public ResponseEntity<Boolean> isCorrectPassword(@RequestBody SignInPageResponse response){
+    public ResponseEntity<SignPack> isCorrectPassword(@RequestBody SignInPageResponse response){
         String actualPassword = uaiService.getPasswordByEmail(response.getEmail());
-        return actualPassword == null ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(null) : ResponseEntity.ok().body(response.getPassword().equals(actualPassword));
+        boolean answer = response.getPassword().equals(actualPassword);
+        int userId = answer ? uaiService.getUserIdByEmail(response.getEmail()) : 0;
+        return actualPassword == null ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(null) : ResponseEntity.ok().body(new SignPack(answer, userId));
     }
 
 
@@ -52,5 +54,33 @@ class SignInPageResponse{
         this.password = password;
     }
 
+    
+}
+
+//isCorrectPassword 返回结构：{answer: 是否通过密码验证, userId: 用户的Id}
+class SignPack{
+    private boolean answer;
+    private int userId;
+
+    public SignPack(boolean answer, int userId) {
+        this.answer = answer;
+        this.userId = userId;
+    }
+
+    public boolean isAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(boolean answer) {
+        this.answer = answer;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
     
 }

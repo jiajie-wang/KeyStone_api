@@ -9,6 +9,8 @@ public interface UserAccountInfoServ {
     public int saveUserAccountInfo(UserAccountInfo uai);
     //登录时需校验密码，使用此方法用邮箱调取密码
     public String getPasswordByEmail(String email);
+    //同上，用来返回用户Id
+    public int getUserIdByEmail(String email);
     //使用邮箱获得用户验证问题
     public String getUserVerifyQues(String email);
     //使用邮箱调用用户验证问题答案

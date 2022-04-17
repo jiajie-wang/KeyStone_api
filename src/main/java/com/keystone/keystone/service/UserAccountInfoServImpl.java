@@ -36,6 +36,15 @@ public class UserAccountInfoServImpl implements UserAccountInfoServ{
     }
 
     @Override
+    public int getUserIdByEmail(String email) {
+        List<UserAccountInfo> uaiList = uaiRepo.findAllByEmail(email);
+        if(uaiList.size() == 0)
+            return 0;
+        else
+            return uaiList.get(0).getUserId();
+    }
+
+    @Override
     public String getUserVerifyQues(String email) {
         List<UserAccountInfo> uaiList = uaiRepo.findAllByEmail(email);
         if(uaiList.size() == 0)
