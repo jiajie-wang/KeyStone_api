@@ -21,4 +21,6 @@ public interface RelationshipServ {
     public List<Integer> getRequestList(int friendId);
     //获取密友请求列表
     public List<Integer> getCloseRequestList(int friendId);
+    //获取推送Map并剔除好友
+    public void rearrangeMatchers(int userId, Map<Integer, Double> matcherMap);
 }

@@ -14,4 +14,6 @@ public interface UserBasicInfoServ {
     public Set<Integer> getTagIdSet(int userId);
     //储存tag
     public int saveUserTagSet(int userId, Set<Tag> tagSet);
+    //获得随机用户Id
+    public int[] getRandomUser(int amount);
 }

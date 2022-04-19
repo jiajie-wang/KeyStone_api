@@ -27,6 +27,10 @@ public class Tag {
     //tag名称，不允许重复
     @Column(unique = true)
     private String tagName;
+    //独特标签，目前应用于性格Tag，它们在matching算法中被用到
+    //0 普通兴趣Tag 1 Extrovert 2 Introvert 3 Judgment 4 Perceiving 5 Sensing/Intuition/Thinking/Feeling 
+    @Column(nullable = true)
+    private int uniqueTag;
     //为方便查找，多对多储存所有拥有此标签的ubi，外键链接到UserBasicInfo
     @ManyToMany(mappedBy = "tagSet")
     private Set<UserBasicInfo> ubiSet = new HashSet<UserBasicInfo>();
@@ -48,6 +52,12 @@ public class Tag {
     }
     public void setTagName(String tagName) {
         this.tagName = tagName;
+    }
+    public int getUniqueTag() {
+        return uniqueTag;
+    }
+    public void setUniqueTag(int uniqueTag) {
+        this.uniqueTag = uniqueTag;
     }
     public Set<UserBasicInfo> getUbiSet() {
         return ubiSet;
