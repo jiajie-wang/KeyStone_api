@@ -5,6 +5,7 @@ import com.keystone.keystone.service.UserAccountInfoServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ public class ForgetPasswordPageController {
 
     //调取用户验证问题
     @GetMapping(value="user/forgetPassword/{email}")
+    @CrossOrigin
     public ResponseEntity<String> getUserVerifyQues(@PathVariable("email") String email){
         String VerifyQues = uaiService.getUserVerifyQues(email);
         return VerifyQues.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(null) : ResponseEntity.ok().body(VerifyQues);
@@ -25,6 +27,7 @@ public class ForgetPasswordPageController {
 
     //验证安全问题答案
     @PostMapping(value = "user/forgetPassword/verifyAns")
+    @CrossOrigin
     public ResponseEntity<Boolean> isCorrectVerifyAns(@RequestBody VerifyQuesResponse response){
         String expectedAns = uaiService.getUserVerifyAns(response.getEmail());
         String actualAns = response.getVerifyAns();

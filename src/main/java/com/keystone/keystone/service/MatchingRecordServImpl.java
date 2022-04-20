@@ -1,6 +1,7 @@
 package com.keystone.keystone.service;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.Map.Entry;
 
 import com.keystone.keystone.model.MatchingRecord;
@@ -16,13 +17,14 @@ public class MatchingRecordServImpl implements MatchingRecordServ{
 
     @Override
     public void rearrangeMatchers(int userId, Map<Integer, Double> matcherMap) {
-        MatchingRecordKey id = new MatchingRecordKey();
-        id.setUserId(userId);
         for(Entry<Integer, Double> entry : matcherMap.entrySet()){
+            MatchingRecordKey id = new MatchingRecordKey();
+            id.setUserId(userId);
             id.setMatcherId(entry.getKey());
-            MatchingRecord record = recordRepo.findById(id).get();
-            if(record == null)
+            Optional<MatchingRecord> recordOp = recordRepo.findById(id);
+            if(recordOp.isEmpty())
                 continue;
+            MatchingRecord record = recordOp.get();
             long currentTime = System.currentTimeMillis();
             //15天=1296000000毫秒
             if(currentTime - record.getDate().getTime() < 1296000000l){

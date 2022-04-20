@@ -15,6 +15,7 @@ import com.keystone.keystone.service.UserBasicInfoServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +35,7 @@ public class PersonalPageController {
 
     //调取用户所有资料（不建议使用的请求）
     @GetMapping(value = "user/all/{userId}")
+    @CrossOrigin
     public ResponseEntity<PersonalPageResponse> getUserInfo(@PathVariable("userId") int userId){
         if(uaiService.getUserAccountInfo(userId) == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -43,6 +45,7 @@ public class PersonalPageController {
 
     //仅调取账户信息
     @GetMapping(value = "user/account/{userId}")
+    @CrossOrigin
     public ResponseEntity<UserAccountInfo> getUserAccountInfo(@PathVariable("userId") int userId){
         UserAccountInfo uai = uaiService.getUserAccountInfo(userId);
         return uai == null ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(null) : ResponseEntity.ok().body(uai);
@@ -50,6 +53,7 @@ public class PersonalPageController {
 
     //仅调取个人资料
     @GetMapping(value = "user/basic/{userId}")
+    @CrossOrigin
     public ResponseEntity<UserBasicResponse> getUserBasicInfo(@PathVariable("userId") int userId){
         if(uaiService.getUserAccountInfo(userId) == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -60,6 +64,7 @@ public class PersonalPageController {
 
     //保存用户所有资料（不建议使用的请求）
     @PostMapping(value = "user/modify")
+    @CrossOrigin
     public ResponseEntity<List<Integer>> saveUserInfo(@RequestBody PersonalPageResponse response){
         if(response.getUai().getUserId() != response.getUbi().getUserId())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -75,6 +80,7 @@ public class PersonalPageController {
 
     //保存用户账户信息
     @PostMapping(value = "user/modify/account")
+    @CrossOrigin
     public ResponseEntity<Integer> saveUserAccountInfo(@RequestBody UserAccountInfo uai){
         Integer idResult = uaiService.saveUserAccountInfo(uai);
         return ResponseEntity.ok().body(idResult);
@@ -82,6 +88,7 @@ public class PersonalPageController {
 
     //保存用户个人资料
     @PostMapping(value = "user/modify/basic")
+    @CrossOrigin
     public ResponseEntity<Integer> saveUserBasicInfo(@RequestBody UserBasicResponse ubr){
         if(uaiService.getUserAccountInfo(ubr.getUbi().getUserId()) == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -96,6 +103,7 @@ public class PersonalPageController {
 
     //在登入状态下验证密码
     @PostMapping(value = "user/verify")
+    @CrossOrigin
     public ResponseEntity<Boolean> isCorrectPassword(@RequestBody PasswordVerifyResponse response){
         UserAccountInfo uai = uaiService.getUserAccountInfo(response.getUserId());
         return uai == null ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(null) : ResponseEntity.ok().body(response.getPassword().equals(uai.getPassword()));

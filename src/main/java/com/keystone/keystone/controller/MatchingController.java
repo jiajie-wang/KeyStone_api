@@ -20,6 +20,7 @@ import com.keystone.keystone.service.UserBasicInfoServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,6 +40,7 @@ public class MatchingController {
 
     //用用户Id获取三个适合匹配的其他用户，将含这三个用户的队列返回到前端
     @GetMapping(value = "match/{userId}")
+    @CrossOrigin
     public ResponseEntity<Queue<Integer>> getMatchers(@PathVariable("userId") int userId){
         //用户不存在则返回404
         if(uaiService.getUserAccountInfo(userId) == null)
@@ -175,7 +177,7 @@ public class MatchingController {
         }
         //根据已推送的情况重调权重，已推送过的用户的权重将变为十分之一
         recordService.rearrangeMatchers(userId, matcherMap);
-        //去除好友，不会被正常匹配到
+        //去除好友与本人，不会被正常匹配到
         relaService.rearrangeMatchers(userId, matcherMap);
         //取三个权重最大的用户入队列，如果缺乏符合条件的用户，随机在数据库中抽取充数
         int returnNum = 3;
@@ -188,7 +190,7 @@ public class MatchingController {
                     maxWeight = e.getValue();
                 }
             }
-            if(maxMatcher == 0){
+            if(maxMatcher == 0 || maxWeight <= 0){
                 int amount = returnNum - i;
                 int[] randomUsers = ubiService.getRandomUser(amount);
                 for(int j = 0; j < amount; j++)
@@ -196,7 +198,7 @@ public class MatchingController {
                 break;
             }else{
                 matcherQueue.offer(maxMatcher);
-                matcherMap.remove(maxMatcher);
+                matcherMap.put(maxMatcher, -1.0);
             }
         }
         //对于入队列的用户，记录在匹配记录中
@@ -211,6 +213,14 @@ public class MatchingController {
         }
         //返回队列
         return matcherQueue == null ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(null) : ResponseEntity.ok().body(matcherQueue);
+    }
+
+    //方便测试使用的清库方法，请勿使用户接触此请求
+    @GetMapping(value = "match/clear")
+    @CrossOrigin
+    public ResponseEntity<Boolean> clearRecords(){
+        recordService.clearAllRecords();
+        return ResponseEntity.ok().body(true);
     }
 
     //解析偏好掩码（Friends 1 Love男性 2 Love女性 4 Foreign Contacts 8 Chat 16）

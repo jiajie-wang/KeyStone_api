@@ -115,13 +115,19 @@ public class RelationshipServImpl implements RelationshipServ{
     @Override
     public void rearrangeMatchers(int userId, Map<Integer, Double> matcherMap) {
         for(Entry<Integer, Double> e : matcherMap.entrySet()){
+            if(userId == e.getKey()){
+                matcherMap.put(userId, -1.0);
+                continue;
+            }
             RelationshipKey id = new RelationshipKey();
             id.setUserId(userId);
             id.setFriendId(e.getKey());
-            Relationship rela = relaRepo.findById(id).get();
-            if(rela != null)
-                if(rela.getLevel() > 0)
-                    matcherMap.remove(e.getKey());
+            Optional<Relationship> relaOp = relaRepo.findById(id);
+            if(relaOp.isEmpty())
+                continue;
+            Relationship rela = relaOp.get();
+            if(rela.getLevel() > 0)
+                matcherMap.put(e.getKey(), -1.0);
         }
     }
 

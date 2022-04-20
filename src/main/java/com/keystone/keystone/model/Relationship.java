@@ -18,12 +18,12 @@ import javax.persistence.IdClass;
 public class Relationship implements Serializable{
     //用户Id
     @Id
-    int userId;
+    private int userId;
     //好友/密友的Id
     @Id
-    int friendId;
+    private int friendId;
     //级别
-    int level;
+    private int level;
 
     public RelationshipKey getId(){
         RelationshipKey id = new RelationshipKey();

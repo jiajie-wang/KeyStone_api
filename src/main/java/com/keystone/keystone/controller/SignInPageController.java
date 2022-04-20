@@ -5,6 +5,7 @@ import com.keystone.keystone.service.UserAccountInfoServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ public class SignInPageController {
 
     //登录验证密码，目前支持用邮箱登录，返回值为是否成功验证和用户Id（验证失败的话用户Id为0）
     @PostMapping(value = "sign")
+    @CrossOrigin
     public ResponseEntity<SignPack> isCorrectPassword(@RequestBody SignInPageResponse response){
         String actualPassword = uaiService.getPasswordByEmail(response.getEmail());
         boolean answer = response.getPassword().equals(actualPassword);
