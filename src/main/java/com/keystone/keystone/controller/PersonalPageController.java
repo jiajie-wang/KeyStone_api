@@ -108,6 +108,16 @@ public class PersonalPageController {
         UserAccountInfo uai = uaiService.getUserAccountInfo(response.getUserId());
         return uai == null ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(null) : ResponseEntity.ok().body(response.getPassword().equals(uai.getPassword()));
     }
+
+    //已经经过验证的情况下，更改用户密码
+    @PostMapping(value = "user/password")
+    @CrossOrigin
+    public ResponseEntity<Integer> savePassword(@RequestBody PasswordVerifyResponse response){
+        UserAccountInfo uai = uaiService.getUserAccountInfo(response.getUserId());
+        uai.setPassword(response.getPassword());
+        Integer idResult = uaiService.saveUserAccountInfo(uai);
+        return ResponseEntity.ok().body(idResult);
+    }
 }
 
 //getUserInfo 与 saveUserInfo 答复结构：{uai: {uai的内容}, ubi: {ubi的内容}, tagIdSet: [第一个tag的Id, 第二个tag的Id, ……]}
