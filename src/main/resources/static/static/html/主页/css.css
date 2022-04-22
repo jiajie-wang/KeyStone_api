@@ -1,0 +1,278 @@
+* {
+    margin: 0;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.header {
+    width: 1200px;
+    height: 60px;
+    margin: 30px auto;
+    background-color: #ffffff;
+}
+
+.logo {
+    width: 60px;
+    height: 42px;
+    float: left;
+}
+
+.nav ul li a {
+    text-decoration: none;
+    padding: 0 10px;
+    height: 42px;
+    display: block;
+    line-height: 42px;
+    font-size: 25px;
+    color: #050505;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+li {
+    list-style: none;
+}
+
+.nav {
+    height: 42px;
+    float: right;
+    margin-right: 80px;
+}
+
+.nav ul li {
+    float: left;
+    margin: 0 15px;
+}
+
+.nav ul li a:hover {
+    border-bottom: 2px solid #ff8800;
+    color: #f80;
+}
+
+body {
+    background: url('b4.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+.banner {
+    width: 1200px;
+    height: 600px;
+    border: 1px solid;
+    margin: 1em auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.slide {
+    width: 1200px;
+    height: 600px;
+    position: absolute;
+}
+
+.banner .imgs {
+    width: 3600px;
+    height: 600px;
+}
+
+.banner .imgs img {
+    width: 1200px;
+    height: 600px;
+}
+
+.banner .imgs a {
+    float: left;
+}
+
+.banner .left,
+.banner .right {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    font-size: 3em;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000000;
+    border-radius: 50%;
+}
+
+.banner .left:hover,
+.banner .right:hover {
+    background: #f80;
+    color: #fff;
+}
+
+.banner .left {
+    left: 10px;
+}
+
+.banner .right {
+    right: 10px;
+}
+
+.box {
+    width: 1200px;
+    height: 450px;
+    margin: 34px auto;
+    background-image: url(背景2.jpg);
+    border-radius: 10px;
+}
+
+.box-title {
+    height: 60px;
+    font-family: monospace;
+    font-size: xx-large;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    top: 40px
+}
+
+.box-body ul {
+    width: 1225px;
+}
+
+.box .box-body ul li {
+    width: 300px;
+    height: 350px;
+    float: left;
+    text-align: center;
+    background-color: hsl(0, 0%, 100%);
+    margin-right: 15px;
+    margin-bottom: 15px;
+    padding: 0 0px;
+    left: 130px;
+    position: relative;
+    border: 2px solid rgb(0, 153, 255);
+    box-shadow: 0 5px 10px rgb(175, 175, 175);
+    border-radius: 15px;
+}
+
+.box .box-body ul li h3 {
+    font-size: 14px;
+    color: #050505;
+    margin: 25px 20px 15px 25px;
+}
+
+.box-body ul .box-body-div {
+    font-size: 12px;
+    color: #999999;
+    margin-left: 25px;
+}
+
+.box-body ul .box-body-div span {
+    color: #ff7c2d;
+}
+
+.box-body ul li em img {
+    position: absolute;
+    top: 4px;
+    right: -4px;
+}
+
+.box-body img {
+    height: 50%;
+}
+
+.box-body button {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 100px;
+    background: rgb(255, 192, 169);
+    border: 1px solid #ff9100;
+    border-radius: 3px;
+}
+
+.article {
+    width: 1200px;
+}
+
+.article-title {
+    height: 50px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: xx-large;
+    vertical-align: middle;
+}
+
+.article-list {
+    width: 1200px;
+    height: 150px;
+}
+
+.article-list .img {
+    float: left;
+}
+
+.article-list h4 {
+    float: left;
+    padding: 0 30px;
+    font-size: larger;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.footer {
+    height: 250px;
+    background-color: #f5f5f5;
+}
+
+.clear {
+    clear: both;
+}
+
+.footer-o {
+    width: 1200px;
+    margin: 0 auto;
+    padding-top: 35px;
+}
+
+.footer-o-left {
+    float: left;
+}
+
+.footer-o-right {
+    float: right;
+}
+
+.footer-o-left p {
+    font-size: 12px;
+    color: #666666;
+    margin: 20px 0px 15px 0px;
+}
+
+.footer-o-left-app {
+    display: block;
+    font-size: 16px;
+    color: #00a4ff;
+    border: 1px solid #00a4ff;
+    width: 120px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+}
+
+dl {
+    float: left;
+}
+
+.footer-o-right dt {
+    font-size: 21px;
+    color: #333333;
+    margin-bottom: 5px;
+    vertical-align: middle;
+}
+
+.footer-o-right dd {
+    font-size: 12px;
+    color: #333333;
+    padding-bottom: 5px;
+}
+
+.footer-o-right dl {
+    margin-left: 150px;
+}
