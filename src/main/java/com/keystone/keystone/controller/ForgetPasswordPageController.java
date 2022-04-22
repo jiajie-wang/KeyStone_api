@@ -28,10 +28,12 @@ public class ForgetPasswordPageController {
     //验证安全问题答案
     @PostMapping(value = "user/forgetPassword/verifyAns")
     @CrossOrigin
-    public ResponseEntity<Boolean> isCorrectVerifyAns(@RequestBody VerifyQuesResponse response){
+    public ResponseEntity<SignPack> isCorrectVerifyAns(@RequestBody VerifyQuesResponse response){
         String expectedAns = uaiService.getUserVerifyAns(response.getEmail());
         String actualAns = response.getVerifyAns();
-        return expectedAns == null ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(null) : ResponseEntity.ok().body(expectedAns.equals(actualAns));
+        boolean answer = expectedAns.equals(actualAns);
+        int userId = answer ? uaiService.getUserIdByEmail(response.getEmail()) : 0;
+        return expectedAns == null ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(null) : ResponseEntity.ok().body(new SignPack(answer, userId));
     }
 
 }
