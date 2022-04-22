@@ -1,0 +1,61 @@
+/* *{
+    margin: 0;
+    padding:0;
+}
+html,
+body{
+    width: 100%;
+    height:100%;
+    background: url("C:/Users/Nyle/Desktop/微信图片_20220412230727.jpg") ;
+    background-size: 100% 100%;
+    -moz-background-clip: padding;
+}
+.Div{
+    position: relative;
+    width: 1000px;
+    height: 200px;
+    border:5px solid black;
+    margin: 100px auto;
+    overflow: hidden;
+}
+.UL li{
+    float:left;
+}
+.UL{
+    overflow:hidden; 
+    position: absolute;
+    width:2800px;
+    height:200px;
+    list-style: none;
+}
+.UL li img{
+    width: 200px;
+    height: 200px;
+} */
+*{
+    margin: 0;
+    padding:0;
+}
+
+.Div{
+    position: relative;
+    width: 700px;
+    height: 600px;
+    border:5px solid black;
+    margin: 100px auto;
+    overflow: hidden;
+}
+.UL li{
+    float:left;
+}
+.UL{
+    /* overflow:hidden; */
+    position: absolute;
+    width:9800px;
+    height:600px;
+    list-style: none;
+}
+.UL li img{
+    width: 700px;
+    height: 600px;
+}

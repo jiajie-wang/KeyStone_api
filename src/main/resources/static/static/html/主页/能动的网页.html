@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Keystone</title>
+    <link rel="stylesheet" type="text/css" href="css.css" />
+    <script type="text/javascript">
+        onload = function() {
+            var arr = document.getElementsByClassName("slide");
+            for (var i = 0; i < arr.length; i++) {
+                arr[i].style.left = i * 1200 + "px";
+            }
+        }
+
+        function LeftMove() {
+            var arr = document.getElementsByClassName("slide"); //获取三个子div
+            for (var i = 0; i < arr.length; i++) {
+                var left = parseFloat(arr[i].style.left);
+                left -= 40;
+                var width = 1200; //图片的宽度
+                if (left <= -width) {
+                    left = (arr.length - 1) * width; //当图片完全走出显示框，拼接到末尾
+                    clearInterval(moveId);
+                }
+                arr[i].style.left = left + "px";
+            }
+        }
+
+        function divInterval() {
+            moveId = setInterval(LeftMove, 20); //设置一个10毫秒定时器
+        }
+
+
+        timeId = setInterval(divInterval, 4000); //设置一个3秒的定时器。
+
+        function stop() {
+            clearInterval(timeId);
+        }
+
+        function start() {
+            clearInterval(timeId);
+            timeId = setInterval(divInterval, 4000);
+        }
+
+        //页面失去焦点停止
+        onblur = function() {
+                stop();
+            }
+            //页面获取焦点时开始
+        onfocus = function() {
+            start();
+        }
+    </script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="new3.html"><img src="logo.png"></a>
+        </div>
+        <div class="nav">
+            <ul>
+                <li><a href="new3.html">Home Page</a></li>
+                <li><a href="https://www.baidu.com/">Social Page</a></li>
+                <li><a href="C:\Users\Nyle\Desktop\新建文件夹\html\personalpage.html">Personal Page</a></li>
+                <li><a href="https://www.bilibili.com/">My Account</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="banner">
+        <div id="banner" onmouseover="stop()" onmouseout="start()">
+            <div class="slide">
+                <a href="https://www.baidu.com/"><img src="1.jpg"></a>
+            </div>
+            <div class="slide">
+                <a href="https://www.baidu.com/"><img src="2.png"></a>
+            </div>
+            <div class="slide">
+                <a href="https://www.baidu.com/"><img src="3.jpg"></a>
+            </div>
+        </div>
+        <div class="left">&lt;</div>
+        <div class="right">&gt;</div>
+
+    </div>
+
+    <div class="box">
+        <div class="box-title">Keystone Services</div>
+        <div class="box-body">
+            <ul>
+                <li>
+                    <img src="R-C.43a5b2a3f84f8df17b5ec872834f749a.png" class="img">
+                    <h3>Matching</h3>
+                    <p>Come and find like-minded friends through tags!</p>
+                    <button><a href="https://www.baidu.com">More</a></button>
+                </li>
+                <li>
+                    <img src="无标题.png" class="img">
+                    <h3>Chatting</h3>
+                    <p>Now start chatting immediately with your new friends~</p>
+                    <button><a href="https://www.baidu.com">More</a></button>
+                </li>
+                <li>
+                    <img src="无标题2.png" class="img">
+                    <h3>Grouping</h3>
+                    <p>Form your own small coteries!</p>
+                    <button><a href="https://www.baidu.com">More</a></button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+    <div class="article">
+        <div class="article-title">Previous activities</div>
+        <br></br>
+        <div class="article-list">
+            <img src="a1.jpg" class="img">
+            <h4><a href="https://mp.weixin.qq.com/s/CAIWEFkfDjSNUWn6jzwqNA">The blind date script kills the middle game?! Encounter is the most romantic Christmas gift</a></h4>
+        </div>
+        <div class="article-list">
+            <img src="a2.jpg" class="img">
+            <h4><a href="https://mp.weixin.qq.com/s/kP7PVShz5wSg18wnVWobyQ">You can make friends with Cupid!</a></h4>
+
+        </div>
+        <div class="article-list"> <img src="a3.jpg" class="img">
+            <h4><a href="https://mp.weixin.qq.com/s/b6L_DUNOIz2VjlyQ12C2Mw">Shock! Did Xipu really send other halves?</a></h4>
+        </div>
+    </div>
+    </div>
+
+
+    <div class="footer">
+        <div class="footer-o">
+            <div class="footer-o-left"><img src="a5eeab57c42e7681a3518c7ad24840e.png">
+                <p>Keystone——The most reliable campus social website<br> All rights reserved - © 2022 keystone.com</p>
+            </div>
+            <div class="footer-o-right">
+                <dl>
+                    <dt><a href=#>About us</a></dt>
+
+                </dl>
+                <dl>
+                    <dt><a href=#>Novice guide</a></dt>
+
+                </dl>
+                <dl>
+                    <dt><a href=#>Cooperative partner</a></dt>
+                </dl>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
