@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Map.Entry;
 
 import com.keystone.keystone.model.Relationship;
 import com.keystone.keystone.model.RelationshipKey;
@@ -109,6 +110,25 @@ public class RelationshipServImpl implements RelationshipServ{
                 result.add(userId);
         }
         return result;
+    }
+
+    @Override
+    public void rearrangeMatchers(int userId, Map<Integer, Double> matcherMap) {
+        for(Entry<Integer, Double> e : matcherMap.entrySet()){
+            if(userId == e.getKey()){
+                matcherMap.put(userId, -1.0);
+                continue;
+            }
+            RelationshipKey id = new RelationshipKey();
+            id.setUserId(userId);
+            id.setFriendId(e.getKey());
+            Optional<Relationship> relaOp = relaRepo.findById(id);
+            if(relaOp.isEmpty())
+                continue;
+            Relationship rela = relaOp.get();
+            if(rela.getLevel() > 0)
+                matcherMap.put(e.getKey(), -1.0);
+        }
     }
 
 }

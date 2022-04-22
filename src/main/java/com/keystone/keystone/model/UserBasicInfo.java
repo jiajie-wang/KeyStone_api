@@ -7,8 +7,6 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
@@ -20,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class UserBasicInfo {
     //用户独有Id，主键
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
     //头像，使用长文本储存
     @Column(columnDefinition = "LONGTEXT")
@@ -48,7 +45,7 @@ public class UserBasicInfo {
     //多对多储存Tags，外键链接到Tag
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Tag> tagSet = new HashSet<Tag>();
-    //偏好掩码，Friends 1 Love同性 2 Love异性 4 Foreign Contacts 8 Chat 16
+    //偏好掩码，Friends 1 Love男性 2 Love女性 4 Foreign Contacts 8 Chat 16
     @Column(nullable = true)
     private int perfer;
     //个人介绍
